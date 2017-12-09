@@ -9,14 +9,23 @@ http.createServer(function(request, response) {
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
+var connect = require('connect');
+var express = require('express');
 
-http.createServer(function (request, response) {
+var models_country = require('./models/country');
+var models_series = require('./models/series');
+var models_dataByYear = require('./models/dataByYear');
+
+//initialize the page by fetching important files
+function initializePage(request, response){
     var filePath = '.' + request.url;
     if (filePath == './')
         filePath = './index.html';
 
     var extname = path.extname(filePath);
     var contentType = 'text/html';
+    
+    /* validating the exetension names of the following files */
     switch (extname) {
         case '.js':
             contentType = 'text/javascript';
@@ -43,7 +52,9 @@ http.createServer(function (request, response) {
             break;
     }
 
+    /* reads all necessary files */
     fs.readFile(filePath, function(error, content) {
+        /* if the current file does not exist */
         if (error) {
             if(error.code == 'ENOENT'){
                 fs.readFile('./404.html', function(error, content) {
@@ -57,12 +68,19 @@ http.createServer(function (request, response) {
                 response.end(); 
             }
         }
+        
+        /* if the current file has been successfully read and exists */
         else {
             response.writeHead(200, { 'Content-Type': contentType });
             response.end(content, 'utf-8');
         }
     });
+}
 
-}).listen(3000);
+var app = connect();
+app.use('/', initializePage);
+
+/* creating the server */
+http.createServer(app).listen(3000);
 
 console.log("Alright! Server has started in http://localhost:3000");
