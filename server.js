@@ -9,7 +9,6 @@ http.createServer(function(request, response) {
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
-var models = require('models');
 
 http.createServer(function (request, response) {
     var filePath = '.' + request.url;
