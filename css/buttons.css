@@ -1,0 +1,75 @@
+/* form elements stylesheet */
+
+:root{
+    --theme-color: #3498db;
+    --darker-theme: #267eb9;
+}
+
+button img{
+    float: left;
+    margin-right: 7px;
+    width: 16px;
+}
+
+button, input{
+    font-family: 'open sans', sans-serif;
+    outline: none;
+}
+
+button, input[type="button"], input[type="submit"]{
+    background-color: transparent;
+    border: thin solid transparent;
+    font-size: 0.7em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    padding: 10px;
+    color: var(--theme-color);
+    cursor: pointer;
+    
+    transition: all ease 0.2s;
+    -webkit-transition: all ease 0.2s;
+    -o-transition: all ease 0.2s;
+    -ms-transition: all ease 0.2s;
+    -moz-transition: all ease 0.2s;
+}
+
+button:hover, input[type="button"]:hover, input[type="submit"]:hover{
+    border-color: var(--theme-color);
+}
+
+button.white, input[type="button"].white, input[type="submit"].white{
+    background-color: transparent;
+    border: thin solid white;
+    color: white;
+}
+
+button.blue, input[type="button"].blue, input[type="submit"].blue{
+    background-color: transparent;
+    border: thin solid var(--theme-color);
+    color: var(--theme-color);
+}
+
+button.grey, input[type="button"].grey, input[type="submit"].grey{
+    color: #999;
+}
+
+button.red, input[type="button"].red, input[type="submit"].red{
+    color: #f24f54;
+}
+
+button.plain-text:hover, input[type="button"].plain-text:hover, input[type="submit"].plain-text:hover{
+    border: thin solid transparent;
+    color: var(--darker-theme);
+}
+
+button.red:hover, input[type="button"].red:hover, input[type="submit"].red:hover{
+    color: #f24f54;
+    border: thin solid transparent;
+}
+
+button.white:hover, input[type="button"].white:hover, input[type="submit"].white:hover,
+button.blue:hover, input[type="button"].blue:hover, input[type="submit"].blue:hover{
+    background-color: var(--theme-color);
+    border-color: var(--theme-color);
+    color: white;
+}

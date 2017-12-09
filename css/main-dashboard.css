@@ -1,0 +1,146 @@
+/* main dashboard stylesheet */
+
+:root{
+    --theme-color: #3498db;
+    --darker-theme: #267eb9;
+}
+
+body, html{
+    background-color: #f5f7fa;
+    font-family: 'open sans', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6{
+    margin: 0;
+    padding: 0;
+    color: var(--theme-color);
+}
+
+p{
+    color: #444;
+    font-size: 0.8em;
+    margin: 0;
+    padding: 0;
+}
+
+nav{
+    height: 100%;
+    width: 18%;
+    background-color: #3a3f4e;
+    position: fixed;
+    box-sizing: border-box;
+    top: 0;
+    left: 0;
+}
+
+div#machine-identity{
+    padding: 30px 0;
+}
+
+div#machine-identity img{
+    margin: 0 auto;
+    width: 100px;
+}
+
+nav h4{
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+nav p.node{
+    color: var(--theme-color);
+    padding: 0;
+    margin: 0;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+nav h5.group-title{
+    color: #7c8694;
+    padding: 10px 30px;
+    font-weight: normal;
+    border-bottom: thin solid #7c8694;
+}
+
+nav ul{
+    padding: 0;
+    margin: 15px 0;
+}
+
+nav ul li{
+    list-style-type: none;
+    padding: 20px 30px;
+    border-left: thick solid transparent;
+    color: white;
+    font-weight: lighter;
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
+nav ul li.active{
+    border-left: thick solid var(--theme-color);
+    color: var(--theme-color);
+    background-color: #313542;
+}
+
+nav ul li:hover{
+    border-left: thick solid var(--theme-color);
+    color: var(--theme-color);
+    background-color: #313542;
+}
+
+section#main-dashboard{
+    position: fixed;
+    height: 100%;
+    box-sizing: border-box;
+    width: 82%;
+    left: 18%;
+    overflow-y: scroll;
+}
+
+header{
+    background-color: white;
+    padding: 15px 20px;
+    border-bottom: 2px solid #e5ebef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h4{
+    font-weight: normal;
+    color: #979492;
+}
+
+section.content-wrapper{
+    padding: 20px;
+}
+
+div.flex-wrapper{
+    display: flex;
+    justify-content: space-between;
+}
+
+div.flex-wrapper .main{
+    width: 100%;
+    box-sizing: border-box;
+}
+
+div.flex-wrapper .sidebar{
+    width: 33%;
+}
+
+div.content-wrapper{
+    padding: 20px;
+    border-radius: 3px;
+    box-shadow: 0px 0px 5px #e0e7ec;
+    background-color: white;
+}
+
+div.content-wrapper h4{
+    margin-bottom: 20px;
+}
