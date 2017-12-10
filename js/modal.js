@@ -5,10 +5,30 @@ $(document).ready(function(){
     
     $(closeButton).click(function(){
         $("#modal-overlay").hide();
+
+        $.ajax({
+            data: {type: "commit"},
+            url: 'service/fetcher.php',
+            method: 'POST',
+            success: function(result) {
+                // document.write(result);
+                location.reload();
+            }
+        });
     });
     
     $("#discard").click(function(){
         $("#modal-overlay").hide();
+
+        $.ajax({
+            data: {type: "commit"},
+            url: 'service/fetcher.php',
+            method: 'POST',
+            success: function(result) {
+                // document.write(result);
+                location.reload();
+            }
+        });
     });
     
     $(".cancel").click(function(){
@@ -22,6 +42,16 @@ $(document).ready(function(){
         
         $("table#main-table tr td:nth-child(1) input").each(function(){
             this.checked = false;
+        });
+
+        $.ajax({
+            data: {type: "commit"},
+            url: 'service/fetcher.php',
+            method: 'POST',
+            success: function(result) {
+                // document.write(result);
+                location.reload();
+            }
         });
     });
 
@@ -77,13 +107,37 @@ $(document).ready(function(){
         var year = this.nextSibling.nextSibling.innerHTML;
         var data = this.nextSibling.nextSibling.nextSibling.innerHTML;
         var id = this.previousSibling.firstElementChild.getAttribute("data-id");
-        console.log(id);
 
-        document.getElementById("info-countryCode").innerHTML = countryCode;
-        document.getElementById("info-seriesCode").innerHTML = seriesCode;
-        document.getElementById("info-year").innerHTML = year;
-        document.getElementById("info-data").innerHTML = data;
+        document.getElementById("info-countryCode").innerHTML = "";
+        document.getElementById("info-seriesCode").innerHTML = "";
+        document.getElementById("info-year").innerHTML = "";
+        document.getElementById("info-data").innerHTML = "";
         document.getElementById("info-id").value = id;
+
+        // TODO Get data from DB with read lock
+        $.ajax({
+            data: {dataid: id,
+                   transactionType: "read"},
+            url: 'service/fetcher.php',
+            method: 'POST',
+            success: function(result) {
+                data = JSON.parse(result);
+
+                if (data != undefined) {
+                    document.getElementById("info-countryCode").innerHTML = data["CountryCode"];
+                    document.getElementById("info-seriesCode").innerHTML = data["SeriesCode"];
+                    document.getElementById("info-year").innerHTML = data["YearC"].split(" ")[0];
+                    document.getElementById("info-data").innerHTML = data["Data"];
+                    document.getElementById("info-id").value = id;
+                }
+            }
+        });
+
+        // document.getElementById("info-countryCode").innerHTML = countryCode;
+        // document.getElementById("info-seriesCode").innerHTML = seriesCode;
+        // document.getElementById("info-year").innerHTML = year;
+        // document.getElementById("info-data").innerHTML = data;
+        // document.getElementById("info-id").value = id;
     });
 
     $("#info-box .form-trigger").click(function(){
@@ -101,11 +155,36 @@ $(document).ready(function(){
         var data = document.getElementById("info-data").innerHTML;
         var id = document.getElementById("info-id").value;
 
-        document.getElementById("form-country").value = countryCode;
-        document.getElementById("form-series").value = seriesCode;
-        document.getElementById("form-year").value = year;
-        document.getElementById("form-data").value = data;
+        document.getElementById("form-country").value = "";
+        document.getElementById("form-series").value = "";
+        document.getElementById("form-year").value = "";
+        document.getElementById("form-data").value = "";
         document.getElementById("form-id").value = id;
+
+        // TODO Get data from DB with write lock
+        $.ajax({
+            data: {dataid: id,
+                   transactionType: "write"},
+            url: 'service/fetcher.php',
+            method: 'POST',
+            success: function(result) {
+                data = JSON.parse(result);
+
+                if (data != undefined) {
+                    document.getElementById("form-country").value = data["CountryCode"];
+                    document.getElementById("form-series").value = data["SeriesCode"];
+                    document.getElementById("form-year").value = data["YearC"].split(" ")[0];
+                    document.getElementById("form-data").value = data["Data"];
+                    document.getElementById("form-id").value = id;
+                }
+            }
+        });
+
+        // document.getElementById("form-country").value = countryCode;
+        // document.getElementById("form-series").value = seriesCode;
+        // document.getElementById("form-year").value = year;
+        // document.getElementById("form-data").value = data;
+        // document.getElementById("form-id").value = id;
 
     });
     

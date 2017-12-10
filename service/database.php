@@ -6,7 +6,7 @@
             if (!isset(self::$connection)) {
                 $path = realpath($_SERVER["DOCUMENT_ROOT"] . '/../config.ini');
                 $config = parse_ini_file($path); 
-                self::$connection = new mysqli($config['host'], $config['user'], $config['password']);
+                self::$connection = new mysqli("p:" . $config['host'], $config['user'], $config['password']);
             }
 
             if (self::$connection === false) {

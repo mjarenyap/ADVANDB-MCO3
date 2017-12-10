@@ -22,7 +22,7 @@
             $connection = $db->connect();
             $connection->autocommit(FALSE);
 
-            $connection->begin_transaction();
+            // $connection->begin_transaction();
 
             $statement = $connection->prepare($sql);
             if ($statement == false) {
@@ -63,7 +63,7 @@
             $connection = $db->connect();
             $connection->autocommit(FALSE);
 
-            $connection->begin_transaction();
+            // $connection->begin_transaction();
 
             $statement = $connection->prepare($sql);
             if ($statement == false) {

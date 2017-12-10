@@ -1,6 +1,85 @@
-<!-- dummy service -->
+
 <?php
 	include "database.php";
+
+    $db = new MySqlDatabase();
+
+	if (isset($_POST["dataid"])) {
+		if (isset($_POST["transactionType"])) {
+			$id = $_POST["dataid"];
+			$type = $_POST["transactionType"];
+
+			switch($type) {
+				case "read":
+					$sql = "SELECT CountryCode, SeriesCode, YearC, Data FROM wdi2.databyyear WHERE Id = ? LOCK IN SHARE MODE";
+					
+					$result = [];
+
+					$connection = $db->connect();
+					$connection->autocommit(FALSE);
+			
+					$connection->begin_transaction();
+			
+					$statement = $connection->prepare($sql);
+					if ($statement == false) {
+						echo $sql;
+					} else {
+						$statement->bind_param("i", $id);
+				
+						if (!$statement->execute())
+						{
+							$connection->rollback();
+							exit();
+						}
+
+						$result = $statement->get_result();
+						
+						$statement->close();
+						// $connection->commit();
+						// $connection->close();
+						echo json_encode($result->fetch_assoc());
+					}
+					break;
+
+				case "write":
+					$sql = "SELECT CountryCode, SeriesCode, YearC, Data FROM wdi2.databyyear WHERE Id = ? FOR UPDATE";
+
+					$result = [];
+					
+					$connection = $db->connect();
+					$connection->autocommit(FALSE);
+			
+					$connection->begin_transaction();
+			
+					$statement = $connection->prepare($sql);
+					if ($statement == false) {
+						echo $sql;
+					} else {
+						$statement->bind_param("i", $id);
+				
+						if (!$statement->execute())
+						{
+							$connection->rollback();
+							exit();
+						}
+
+						$result = $statement->get_result();
+						
+						$statement->close();
+						// $connection->commit();
+						// $connection->close();
+						echo json_encode($result->fetch_assoc());
+					}
+					break;
+
+				case "commit":
+					$connection = $db->connect();
+					$connection->commit();
+					break;
+			}
+			
+		}
+	}
 
 	function fetchRegions() {
 		$db = new MySqlDatabase();
