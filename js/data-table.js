@@ -31,6 +31,7 @@ $(document).ready(function(){
         
         else $("#data-options").hide();
     });
+
     
     $("button#delete-data").click(function(){
         $("#modal-overlay").css("display", "flex");
